@@ -82,7 +82,7 @@ export default function Weather(props) {
                   </a>{" "}
                   and{" "}
                   <a
-                    href="https://github.com/Emang-M/homework"
+                    href="https://66e758bafc20615469bb560f--keen-begonia-a73060.netlify.app/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -118,7 +118,7 @@ export default function Weather(props) {
                   </a>{" "}
                   and{" "}
                   <a
-                    href="https://github.com/Emang-M/homework"
+                    href="https://66e758bafc20615469bb560f--keen-begonia-a73060.netlify.app/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
