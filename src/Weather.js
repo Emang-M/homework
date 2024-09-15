@@ -1,12 +1,11 @@
 import React,{useState} from "react";
-import WeatherInfo from "./WeatherInfo";
 import axios from "axios";
-import "./Weather.css";
-
+import WeatherInfo from "./WeatherInfo";
+ 
 export default function Weather(props) {
     let [weatherData, setWeatherData] = useState({ ready: false });
     let [loaded, setLoaded] = useState(false);
-    let [city, setCity] = useState(props.defaultCity);
+    let [city, setCity] = useState(props.city);
   
     function handleResponse(response) {
         console.log(response.data);
@@ -37,26 +36,32 @@ export default function Weather(props) {
     
   
     let form = (
-          <form onSubmit={handleSubmit}>
-              <div className="col-9 ">
-                <input
-                  type="search"
-                  placeholder="Enter a city.."
-                  className="form-control search-input"
-                  onChange={handleCityChange}
-                />
-              </div>
-              <div className="col-3 p-0">
-                <button type="submit" className="btn btn-primary w-100" > Search </button>
-              </div>
-          </form>
+        <div>
+            <form onSubmit={handleSubmit}>
+                        <input
+                            type="search"
+                            placeholder="Enter a city..."
+                            className="form-control search-input"
+                            onChange={handleCityChange}
+                        />
+                        <button type="submit" className="btn btn-primary w-100"> Search </button>
+                
+            </form>
+        </div>
     );
           if(loaded) {
             return(
                 <div>
                 {form}
-                <WeatherInfo data={weatherData} />
-                <img src={weatherData.icon} alt={weatherDatas.description} />
+                <ul>
+          <li>Temperature: {Math.round(weatherData.temperature)}°C</li>
+          <li>Description: {weatherData.description}</li>
+          <li>Humidity: {weatherData.humidity}%</li>
+          <li>Wind: {weatherData.wind}km/h</li>
+          <li>
+            <img src={weatherData.icon} alt={weatherData.description}  size={52}/>
+          </li>
+        </ul>
 
                 <footer>
                   This project was coded by{" "}
@@ -69,7 +74,7 @@ export default function Weather(props) {
                   </a>{" "}
                   and is{" "}
                   <a
-                    href="https://github.com/shecodesio/weather"
+                    href=""
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -77,7 +82,7 @@ export default function Weather(props) {
                   </a>{" "}
                   and{" "}
                   <a
-                    href="https://shecodes-weather.netlify.app/"
+                    href=""
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -87,6 +92,39 @@ export default function Weather(props) {
               </div>
             );
           } else {
-      return "Loading...";
+            
+      return(
+        <div>
+        {form}
+        <WeatherInfo data={weatherData} />
+                <img src={weatherData.icon} alt={weatherData.description} />
+
+                <footer>
+                  This project was coded by{" "}
+                  <a
+                    href="https://github.com/Emang-M"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Emang
+                  </a>{" "}
+                  and is{" "}
+                  <a
+                    href=""
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    open-sourced on GitHub
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href=""
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    hosted on Netlify
+                  </a>
+                </footer>
+              </div>);
     }
   }
