@@ -5,50 +5,39 @@ import "./Weather.css";
 
 export default function Weather(props) {
     let [weatherData, setWeatherData] = useState({ ready: false });
+    let [loaded, setLoaded] = useState(false);
     let [city, setCity] = useState(props.defaultCity);
   
     function handleResponse(response) {
+        console.log(response.data);
+        setLoaded(true);
       setWeatherData({
-        ready: true,
-        coordinates: response.data.coordinates,
-        temperature: response.data.temperature.current,
-        humidity: response.data.temperature.humidity,
-        date: new Date(response.data.time * 1000),
-        description: response.data.condition.description,
-        icon: response.data.condition.icon,
+        coordinates: response.data.coord,
+        temperature: response.data.main.temp,
+        humidity: response.data.main.humidity,
+        date: new Date(response.data.sys.timezone * 7200),
+        description: response.data.weather[0].description,
+        icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
         wind: response.data.wind.speed,
-        city: response.data.city,
       });
     }
   
     function handleSubmit(event) {
       event.preventDefault();
-      search();
+      let apiKey = "dff5c692192605ee5ed7f95b423ae857";
+        let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  
+      axios.get(apiUrl).then(handleResponse);
     }
   
     function handleCityChange(event) {
       setCity(event.target.value);
     }
   
-    function search() {
-        let apiKey = "dff5c692192605ee5ed7f95b423ae857";
-        let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    
   
-      axios.get(apiUrl).then(handleResponse);
-    }
-  
-    if (weatherData.ready) {
-      return (
-        <div className="Weather">
-          <a
-            href="https://www.shecodes.io/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src="/images/logo.png" className="logo" alt="SheCodes Logo" />
-          </a>
+    let form = (
           <form onSubmit={handleSubmit}>
-            <div className="row">
               <div className="col-9 ">
                 <input
                   type="search"
@@ -58,45 +47,46 @@ export default function Weather(props) {
                 />
               </div>
               <div className="col-3 p-0">
-                <input
-                  type="submit"
-                  value="Search"
-                  className="btn btn-primary w-100"
-                />
+                <button type="submit" className="btn btn-primary w-100" > Search </button>
               </div>
-            </div>
           </form>
-          <WeatherInfo data={weatherData} />
-          <footer>
-            This project was coded by{" "}
-            <a
-              href="https://github.com/Emang-M"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Emang
-            </a>{" "}
-            and is{" "}
-            <a
-              href="https://github.com/shecodesio/weather"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              open-sourced on GitHub
-            </a>{" "}
-            and{" "}
-            <a
-              href="https://shecodes-weather.netlify.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              hosted on Netlify
-            </a>
-          </footer>
-        </div>
-      );
-    } else {
-      search();
+    );
+          if(loaded) {
+            return(
+                <div>
+                {form}
+                <WeatherInfo data={weatherData} />
+                <img src={weatherData.icon} alt={weatherDatas.description} />
+
+                <footer>
+                  This project was coded by{" "}
+                  <a
+                    href="https://github.com/Emang-M"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Emang
+                  </a>{" "}
+                  and is{" "}
+                  <a
+                    href="https://github.com/shecodesio/weather"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    open-sourced on GitHub
+                  </a>{" "}
+                  and{" "}
+                  <a
+                    href="https://shecodes-weather.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    hosted on Netlify
+                  </a>
+                </footer>
+              </div>
+            );
+          } else {
       return "Loading...";
     }
   }
