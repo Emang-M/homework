@@ -74,7 +74,7 @@ export default function Weather(props) {
                   </a>{" "}
                   and is{" "}
                   <a
-                    href=""
+                    href="https://github.com/Emang-M/homework"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -82,7 +82,7 @@ export default function Weather(props) {
                   </a>{" "}
                   and{" "}
                   <a
-                    href=""
+                    href="https://github.com/Emang-M/homework"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -110,7 +110,7 @@ export default function Weather(props) {
                   </a>{" "}
                   and is{" "}
                   <a
-                    href=""
+                    href="https://github.com/Emang-M/homework"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -118,7 +118,7 @@ export default function Weather(props) {
                   </a>{" "}
                   and{" "}
                   <a
-                    href=""
+                    href="https://github.com/Emang-M/homework"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
